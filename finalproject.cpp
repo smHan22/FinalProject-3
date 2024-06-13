@@ -48,9 +48,9 @@ void on_mouse(int event, int x, int y, int flags, void* userdata) {
 			int num = run(*(Mat*)userdata);
 
 			if (num == -1) {
-				cout << "¼ıÀÚ¸¦ ÀÎ½ÄÇÏÁö ¸øÇß½À´Ï´Ù." << endl;
+				cout << "ìˆ«ìë¥¼ ì¸ì‹í•˜ì§€ ëª»í–ˆìŠµë‹ˆë‹¤." << endl;
 			}
-			cout << "°á°ú: " << num << endl;
+			cout << "ê²°ê³¼: " << num << endl;
 		}
 		else if (Rect(700, 0, 200, 100).contains(Point(x, y))) {    // contour
 			Contour((*(Mat*)userdata));
@@ -83,7 +83,7 @@ void on_mouse(int event, int x, int y, int flags, void* userdata) {
 	}
 }
 
-Mat drawLine() {		// UI ±×¸®±â ÇÔ¼ö
+Mat drawLine() {		// UI ê·¸ë¦¬ê¸° í•¨ìˆ˜
 	rectangle(src, Rect(0, 0, 700, 500), Scalar(0, 0, 0), 2);
 	rectangle(src, Rect(500, 0, 200, 100), Scalar(0, 0, 0), 2);     // save block
 	rectangle(src, Rect(500, 100, 200, 100), Scalar(0, 0, 0), 2);   // load block
@@ -119,26 +119,26 @@ Mat drawLine() {		// UI ±×¸®±â ÇÔ¼ö
 	return src;
 }
 
-// °¢ ¹öÆ° ¿ªÇÒ ÇÔ¼ö Á¤ÀÇ
+// ê° ë²„íŠ¼ ì—­í•  í•¨ìˆ˜ ì •ì˜
 void Clear(const Mat& image) {		// Clear
-	(image)(Rect(0, 0, 500, 500)) = Scalar(255, 255, 255); // userdata¸¦ Mat Å¸ÀÔÀ¸·Î Ä³½ºÆÃÇÏ°í ÀÌ¸¦ ÂüÁ¶ÇÏ¿© 500x500 ¿µ¿ªÀ» Èò»öÀ¸·Î Ã¤¿ò
-	rectangle(image, Rect(0, 0, 500, 500), Scalar(0), 2); // °°Àº Mat °´Ã¼¿¡ °ËÀº»ö Å×µÎ¸®¸¦ ±×¸²
-	cout << "ÀÔ·ÂÃ¢ »èÁ¦µÊ" << endl;
-	imshow("Windows", image); // º¯°æµÈ ÀÌ¹ÌÁö¸¦ ´Ù½Ã Ç¥½ÃÇÔ
+	(image)(Rect(0, 0, 500, 500)) = Scalar(255, 255, 255); // userdataë¥¼ Mat íƒ€ì…ìœ¼ë¡œ ìºìŠ¤íŒ…í•˜ê³  ì´ë¥¼ ì°¸ì¡°í•˜ì—¬ 500x500 ì˜ì—­ì„ í°ìƒ‰ìœ¼ë¡œ ì±„ì›€
+	rectangle(image, Rect(0, 0, 500, 500), Scalar(0), 2); // ê°™ì€ Mat ê°ì²´ì— ê²€ì€ìƒ‰ í…Œë‘ë¦¬ë¥¼ ê·¸ë¦¼
+	cout << "ì…ë ¥ì°½ ì‚­ì œë¨" << endl;
+	imshow("Windows", image); // ë³€ê²½ëœ ì´ë¯¸ì§€ë¥¼ ë‹¤ì‹œ í‘œì‹œí•¨
 }
 
 void Save(const Mat& image) {		// Save
 	string fileName;
 	Mat save = (image)(Rect(2, 2, 496, 496)).clone();
 	resize(save, save, Size(500, 500));
-	cout << "ÆÄÀÏ¸í ÀÔ·Â: ";
+	cout << "íŒŒì¼ëª… ì…ë ¥: ";
 	cin >> fileName;
 	imwrite(fileName, save);
-	cout << fileName << "ÀÌ ÀúÀåµÊ" << endl;
+	cout << fileName << "ì´ ì €ì¥ë¨" << endl;
 }
 void Load(const Mat& image) {		// Load
 	string fileName;
-	cout << "ÆÄÀÏ¸íÀ» ÀÔ·ÂÇÏ½Ã¿À: ";
+	cout << "íŒŒì¼ëª…ì„ ì…ë ¥í•˜ì‹œì˜¤: ";
 	cin >> fileName;
 	Mat numberImg = imread(fileName);
 	rectangle(numberImg, Rect(0, 0, 500, 500), Scalar(0), 2);
@@ -155,15 +155,15 @@ void Contour(const Mat& image) {		// Contour
 	findContours(bin, contours, RETR_LIST, CHAIN_APPROX_NONE);
 	imshow("bin", bin);
 
-	cout << "°ËÃâµÈ ¿Ü°û¼±: " << contours.size() << endl;
+	cout << "ê²€ì¶œëœ ì™¸ê³½ì„ : " << contours.size() << endl;
 	if (contours.size() == 1) {
-		cout << "¿¹»ó ¼ıÀÚ: 1, 2, 3, 4, 5, 7" << endl;
+		cout << "ì˜ˆìƒ ìˆ«ì: 1, 2, 3, 4, 5, 7" << endl;
 	}
 	else if (contours.size() == 2) {
-		cout << "¿¹»ó ¼ıÀÚ: 0, 4, 6, 9" << endl;
+		cout << "ì˜ˆìƒ ìˆ«ì: 0, 4, 6, 9" << endl;
 	}
 	else if (contours.size() == 3) {
-		cout << "¿¹»ó ¼ıÀÚ: 8" << endl;
+		cout << "ì˜ˆìƒ ìˆ«ì: 8" << endl;
 	}
 }
 void CenterPoint(const Mat& image) {		// CenterPoint
@@ -175,10 +175,10 @@ void CenterPoint(const Mat& image) {		// CenterPoint
 	vector<vector<Point>> contours;
 	findContours(bin, contours, RETR_LIST, CHAIN_APPROX_NONE);
 
-	cout << "°ËÃâµÈ ¿Ü°û¼±: " << contours.size() << endl;
+	cout << "ê²€ì¶œëœ ì™¸ê³½ì„ : " << contours.size() << endl;
 
 	cvtColor(bin, bin, COLOR_GRAY2BGR);
-	// ¹Ù¿îµù ¹Ú½º¸¦ ±×¸®°í Áß½É ÁÂÇ¥ °è»ê
+	// ë°”ìš´ë”© ë°•ìŠ¤ë¥¼ ê·¸ë¦¬ê³  ì¤‘ì‹¬ ì¢Œí‘œ ê³„ì‚°
 	vector<Rect> boundingBoxes;
 	for (int i = 0; i < contours.size(); i++) {
 		Rect boundingBox = boundingRect(contours[i]);
@@ -186,7 +186,7 @@ void CenterPoint(const Mat& image) {		// CenterPoint
 		rectangle(bin, boundingBox, Scalar(0, 255, 0), 2);
 	}
 
-	// ¹Ù¿îµù ¹Ú½ºµéÀÇ Áß½É ÁÂÇ¥ °è»ê
+	// ë°”ìš´ë”© ë°•ìŠ¤ë“¤ì˜ ì¤‘ì‹¬ ì¢Œí‘œ ê³„ì‚°
 	vector<Point> centers;
 	for (size_t i = 0; i < boundingBoxes.size(); i++) {
 		int centerX = boundingBoxes[i].x + boundingBoxes[i].width / 2;
@@ -194,7 +194,7 @@ void CenterPoint(const Mat& image) {		// CenterPoint
 		Point center(centerX, centerY);
 		centers.push_back(center);
 		circle(bin, center, 5, Scalar(0, 0, 255), -1);
-		cout << "Áß½É ÁÂÇ¥: " << center << endl;
+		cout << "ì¤‘ì‹¬ ì¢Œí‘œ: " << center << endl;
 
 		if (centers.size() >= 2) {
 			Point center1 = centers[0];
@@ -208,7 +208,7 @@ void CenterPoint(const Mat& image) {		// CenterPoint
 	}
 }
 
-tuple<Point, Point, vector<Point>> ShowContoursAndCenters(const Mat& image) {		// ¿ÜºÎ ¿Ü°û¼±, ³»ºÎ ¿Ü°û¼± Áß½É ÁÂÇ¥
+tuple<Point, Point, vector<Point>> ShowContoursAndCenters(const Mat& image) {		// ì™¸ë¶€ ì™¸ê³½ì„ , ë‚´ë¶€ ì™¸ê³½ì„  ì¤‘ì‹¬ ì¢Œí‘œ
 	Mat gray, bin;
 	cvtColor(image, gray, COLOR_BGR2GRAY);
 	Mat gray_img = gray(Rect(2, 2, 496, 496));
@@ -217,7 +217,7 @@ tuple<Point, Point, vector<Point>> ShowContoursAndCenters(const Mat& image) {		/
 	vector<vector<Point>> contours;
 	findContours(bin, contours, RETR_LIST, CHAIN_APPROX_NONE);
 
-	// ¹Ù¿îµù ¹Ú½º¸¦ ±×¸®°í Áß½É ÁÂÇ¥ °è»ê
+	// ë°”ìš´ë”© ë°•ìŠ¤ë¥¼ ê·¸ë¦¬ê³  ì¤‘ì‹¬ ì¢Œí‘œ ê³„ì‚°
 	vector<Rect> boundingBoxes;
 	cvtColor(bin, bin, COLOR_GRAY2BGR);
 	for (int i = 0; i < contours.size(); i++) {
@@ -226,7 +226,7 @@ tuple<Point, Point, vector<Point>> ShowContoursAndCenters(const Mat& image) {		/
 		rectangle(bin, boundingBox, Scalar(0, 255, 0), 2);
 	}
 
-	// ¹Ù¿îµù ¹Ú½ºµéÀÇ Áß½É ÁÂÇ¥ °è»ê
+	// ë°”ìš´ë”© ë°•ìŠ¤ë“¤ì˜ ì¤‘ì‹¬ ì¢Œí‘œ ê³„ì‚°
 	vector<Point> centers;
 	for (int i = 0; i < boundingBoxes.size(); i++) {
 		int centerX = boundingBoxes[i].x + boundingBoxes[i].width / 2;
@@ -239,7 +239,7 @@ tuple<Point, Point, vector<Point>> ShowContoursAndCenters(const Mat& image) {		/
 	Point center2 = centers[1];
 	/*
 	imshow("Windows", image);
-	imshow("Bounding Boxes and Centers", bin);  // »õ·Î¿î Ã¢¿¡ Ç¥½Ã
+	imshow("Bounding Boxes and Centers", bin);  // ìƒˆë¡œìš´ ì°½ì— í‘œì‹œ
 	*/
 	return make_tuple(center1, center2, centers);
 }
@@ -329,7 +329,7 @@ int run(const Mat& image) {
 		boundingBoxes.push_back(boundingBox);
 	}
 
-	// ¹Ù¿îµù ¹Ú½ºµéÀÇ Áß½É ÁÂÇ¥ °è»ê
+	// ë°”ìš´ë”© ë°•ìŠ¤ë“¤ì˜ ì¤‘ì‹¬ ì¢Œí‘œ ê³„ì‚°
 	vector<Point> centers;
 	for (int i = 0; i < boundingBoxes.size(); i++) {
 		int centerX = boundingBoxes[i].x + boundingBoxes[i].width / 2;
